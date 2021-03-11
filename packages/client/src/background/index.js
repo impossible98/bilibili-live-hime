@@ -1072,7 +1072,6 @@ var BilibiliLiveHimeBackground = (function () {
 	function () {
 	  function Background() {
 	    var _this = this;
-
 	    classCallCheck(this, Background);
 
 	    this.stream = null;
@@ -1082,7 +1081,6 @@ var BilibiliLiveHimeBackground = (function () {
 	    this.config = Background.Config;
 	    onMessage(function _callee(request, sender) {
 	      var type, data, _this$config, activeTab, liveTab, tab;
-
 	      return regenerator.async(function _callee$(_context) {
 	        while (1) {
 	          switch (_context.prev = _context.next) {
@@ -1131,7 +1129,6 @@ var BilibiliLiveHimeBackground = (function () {
 
 	              _this$config = _this.config, activeTab = _this$config.activeTab, liveTab = _this$config.liveTab;
 	              tab = sender.tab;
-
 	              if (!(activeTab && liveTab && tab && liveTab === tab.id)) {
 	                _context.next = 28;
 	                break;
@@ -1252,16 +1249,14 @@ var BilibiliLiveHimeBackground = (function () {
 	    key: "start",
 	    value: function start() {
 	      var _this2 = this;
-
-	      var _this$config2, socket, rtmp, liveTab, streamname, resolution, videoBitsPerSecond, rtmpFullUrl;
-
+		  //添加crop
+	      var _this$config2, crop, socket, rtmp, liveTab, streamname, resolution, videoBitsPerSecond, rtmpFullUrl;
 	      return regenerator.async(function start$(_context6) {
 	        while (1) {
 	          switch (_context6.prev = _context6.next) {
 	            case 0:
-	              _this$config2 = this.config, socket = _this$config2.socket, rtmp = _this$config2.rtmp, liveTab = _this$config2.liveTab, streamname = _this$config2.streamname, resolution = _this$config2.resolution, videoBitsPerSecond = _this$config2.videoBitsPerSecond;
-
-	              if (!liveTab) {
+	              _this$config2 = this.config, crop = _this$config2.crop, socket = _this$config2.socket, rtmp = _this$config2.rtmp, liveTab = _this$config2.liveTab, streamname = _this$config2.streamname, resolution = _this$config2.resolution, videoBitsPerSecond = _this$config2.videoBitsPerSecond;
+				  if (!liveTab) {
 	                _context6.next = 6;
 	                break;
 	              }
@@ -1286,7 +1281,8 @@ var BilibiliLiveHimeBackground = (function () {
 
 	            case 13:
 	              // 告知服务器命令：开启ffmpeg进程
-	              this.socket.emit(RTMP, rtmpFullUrl); // 来自服务器命令：打印
+				  //将crop传到后台
+	              this.socket.emit(RTMP, {url:rtmpFullUrl, crop:crop}); // 来自服务器命令：打印
 
 	              this.socket.on(LOG, function _callee3(info) {
 	                return regenerator.async(function _callee3$(_context3) {
@@ -1352,8 +1348,8 @@ var BilibiliLiveHimeBackground = (function () {
 	                          _context4.next = 22;
 	                          break;
 	                        }
-
-	                        _this2.socket.emit(RTMP, rtmpFullUrl);
+							_this2.socket.emit(RTMP, {url: rtmpFullUrl, crop: crop});
+	                        // _this2.socket.emit(RTMP, rtmpFullUrl);
 
 	                        _context4.next = 24;
 	                        break;

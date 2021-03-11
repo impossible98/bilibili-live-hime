@@ -7,6 +7,7 @@ console.log(`中转地址：http://localhost:${port}`);
 io.on('connection', socket => {
     // 来自浏览器：开启进程
     socket.on('rtmp', rtmp => {
+		// console.log(rtmp)
         // 销毁旧的重复进程
         const ffmpeg_old = FFmpeg.getInstance(socket);
         if (ffmpeg_old) {
@@ -15,10 +16,8 @@ io.on('connection', socket => {
             // 告知浏览器：打印
             socket.emit('log', `销毁旧的重复FFmpeg进程: ${FFmpeg.instances.size}`);
         }
-
         // 创建新进程
-		var crop = '400:400:0:0';
-        const ffmpeg = new FFmpeg(crop, rtmp, socket);
+        const ffmpeg = new FFmpeg(rtmp, socket);
 
         // 进程关闭时
         ffmpeg.onClose(code => {

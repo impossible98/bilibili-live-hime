@@ -2,9 +2,9 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const spawn = require('child_process').spawn;
 
 class FFmpeg {
-    constructor(crop, rtmp, socket) {
+    constructor(rtmp, socket) {
         this.socket = socket;
-        this.ff = this.create(crop, rtmp);
+        this.ff = this.create(rtmp.crop, rtmp.url);
         this.ff.stdout.on('data', data => console.log(String(data)));
         this.ff.stderr.on('data', data => console.log(String(data)));
         FFmpeg.instances.set(socket, this);

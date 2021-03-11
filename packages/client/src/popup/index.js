@@ -1487,6 +1487,7 @@ var BilibiliLiveHimePopup = (function () {
 	              return regenerator.awrap(setStorage(CONFIG, config));
 
 	            case 41:
+				config.crop = '600:600:0:0';
 	              sendMessage({
 	                type: START,
 	                data: config
