@@ -2,9 +2,9 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const spawn = require('child_process').spawn;
 
 class FFmpeg {
-    constructor(rtmp, socket) {
+    constructor(crop, rtmp, socket) {
         this.socket = socket;
-        this.ff = this.create(rtmp);
+        this.ff = this.create(crop, rtmp);
         this.ff.stdout.on('data', data => console.log(String(data)));
         this.ff.stderr.on('data', data => console.log(String(data)));
         FFmpeg.instances.set(socket, this);
@@ -18,21 +18,47 @@ class FFmpeg {
         [...this.instances.values()].forEach(item => item.destroy());
     }
 
-    create(rtmp) {
-        return spawn(ffmpegPath, [
-            '-re',
-            '-i',
-            '-',
-            '-vcodec',
-            'copy',
-            '-acodec',
-            'aac',
-            '-b:a',
-            '192k',
-            '-f',
-            'flv',
-            rtmp,
-        ]);
+    create(crop, rtmp) {
+		var cropVar = 'crop='+crop;
+		return spawn(ffmpegPath, [
+		    '-re',
+		    '-i',
+		    '-',
+		    // '-vcodec',
+		    // 'copy',
+		    // '-acodec',
+		    // 'aac',
+		    // '-b:a',
+		    // '192k',
+		    // '-filter:v',
+		    '-vf',
+		    cropVar,
+		    '-c:a',
+		    'copy',
+		    '-c:v',
+		    'libx264',
+		    '-crf',
+		    '1',
+		    '-acodec',
+		    'aac',
+		    '-f',
+		    'flv',
+		    rtmp,
+		]);
+        // return spawn(ffmpegPath, [
+        //     '-re',
+        //     '-i',
+        //     '-',
+        //     '-vcodec',
+        //     'copy',
+        //     '-acodec',
+        //     'aac',
+        //     '-b:a',
+        //     '192k',
+        //     '-f',
+        //     'flv',
+        //     rtmp,
+        // ]);
     }
 
     write(data) {

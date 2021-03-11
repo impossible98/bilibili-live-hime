@@ -17,7 +17,8 @@ io.on('connection', socket => {
         }
 
         // 创建新进程
-        const ffmpeg = new FFmpeg(rtmp, socket);
+		var crop = '400:400:0:0';
+        const ffmpeg = new FFmpeg(crop, rtmp, socket);
 
         // 进程关闭时
         ffmpeg.onClose(code => {
