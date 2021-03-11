@@ -1036,6 +1036,8 @@ var BilibiliLiveHimePopup = (function () {
 	    this.$socketSetting = query('.socketSetting');
 	    this.$name.textContent = "".concat(this.manifest.name, " ").concat(this.manifest.version);
 	    this.$rtmp = query('.rtmp');
+		//区域坐标
+		this.$crop = query('.crop');
 	    this.$streamname = query('.streamname');
 	    this.$socket = query('.socket');
 	    this.$live = query('.live');
@@ -1063,7 +1065,7 @@ var BilibiliLiveHimePopup = (function () {
 	    key: "bindEvent",
 	    value: function bindEvent() {
 	      var _this2 = this;
-
+		
 	      return regenerator.async(function bindEvent$(_context2) {
 	        while (1) {
 	          switch (_context2.prev = _context2.next) {
@@ -1086,6 +1088,10 @@ var BilibiliLiveHimePopup = (function () {
 	              this.$streamname.addEventListener('input', function () {
 	                _this2.saveInput('streamname');
 	              });
+				  //保存区域坐标
+				  this.$crop.addEventListener('input', function () {
+				    _this2.saveInput('crop');
+				  });
 	              this.$socket.addEventListener('input', function () {
 	                _this2.saveInput('socket');
 	              });
@@ -1247,6 +1253,8 @@ var BilibiliLiveHimePopup = (function () {
 	                this.$rtmp.value = config.rtmp || '';
 	                this.$live.value = config.live || '';
 	                this.$streamname.value = config.streamname || '';
+					//初始化区域坐标
+					this.$crop.value = config.crop || '';
 	                this.$socket.value = config.socket || DEFAULT_SOCKET;
 	                this.$resolution.value = config.resolution || DEFAULT_RESOLUTION;
 	                this.$videoBitsPerSecond.value = config.videoBitsPerSecond || DEFAULT_VIDEO_BITSPER;
@@ -1398,6 +1406,8 @@ var BilibiliLiveHimePopup = (function () {
 	                activeTab: activeTab.id,
 	                rtmp: this.$rtmp.value.trim(),
 	                streamname: this.$streamname.value.trim(),
+					//初始化区域坐标
+					crop: this.$crop.value.trim(),
 	                socket: this.$socket.value.trim(),
 	                live: this.$live.value.trim(),
 	                resolution: Number(this.$resolution.value),
@@ -1487,7 +1497,7 @@ var BilibiliLiveHimePopup = (function () {
 	              return regenerator.awrap(setStorage(CONFIG, config));
 
 	            case 41:
-				config.crop = '600:600:0:0';
+				  // config.crop = '600:600:0:0';
 	              sendMessage({
 	                type: START,
 	                data: config
