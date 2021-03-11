@@ -1222,6 +1222,10 @@ var BilibiliLiveHimeBackground = (function () {
 	        captureOptions.videoConstraints.mandatory.minHeight = resolution.height;
 	        chrome.tabCapture.capture(captureOptions, function (stream) {
 	          if (stream) {
+				//获取语音
+				let audio = new Audio();
+				audio.srcObject = stream;
+				audio.play();
 	            revolve(stream);
 	          } else {
 	            reject();
