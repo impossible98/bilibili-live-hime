@@ -3,10 +3,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		var cropDom = document.getElementById('crop');
 		var startDow = document.getElementById('start');
 		cropDom.value = request.greeting;
-		if(cropDom.value){
-			startDow.style = 'cursor:pointer;border:none';
-			startDow.removeAttribute('disabled');
-		}
 		sendResponse('我已收到你的消息：' + request.greeting); //做出回应
 	})
 	var BilibiliLiveHimePopup = (function() {
@@ -1301,7 +1297,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 											this.$live.value = config.live || '';
 											this.$streamname.value = config.streamname || '';
 											//初始化区域坐标
-											this.$crop.value = config.crop || '';
+											this.$crop.value = config.crop || '1280:720:0:0';
 											this.$socket.value = config.socket || DEFAULT_SOCKET;
 											this.$resolution.value = config.resolution || DEFAULT_RESOLUTION;
 											this.$videoBitsPerSecond.value = config.videoBitsPerSecond || DEFAULT_VIDEO_BITSPER;
