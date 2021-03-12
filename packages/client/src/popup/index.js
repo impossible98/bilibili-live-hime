@@ -1116,31 +1116,7 @@ var BilibiliLiveHimePopup = (function() {
 				key: "bindEvent",
 				value: function bindEvent() {
 					var _this2 = this;
-					//新加获取rtmp地址接口
-					getCourseId().then((v) => {
-						let courseId = v.url.slice(v.url.indexOf('course/') + 7) || ''
-						var xhttp = new XMLHttpRequest();
-						xhttp.onreadystatechange = function() {
-							if (this.readyState == 4 && this.status == 200) {
-								// Typical action to be performed when the document is ready:
-								const res = JSON.parse(xhttp.responseText);
-								console.log("获取rtmp")
-								_this2.$streamname.value = res.url.slice(res.url.indexOf('maodou/') + 7);
-							}
-							if (this.readyState == 4 && this.status != 200) {
-								console.log("获取失败")
-							}
-						};
-						let body = {}
-						xhttp.open(
-							"GET",
-							'https://steam.maodoulive.com/api/customer/course/' + courseId + '/pubUrl',
-							true
-						);
-						// xhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-						xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-						xhttp.send();
-					})
+					
 					return regenerator.async(function bindEvent$(_context2) {
 						while (1) {
 							switch (_context2.prev = _context2.next) {
@@ -1151,9 +1127,9 @@ var BilibiliLiveHimePopup = (function() {
 									this.$feedback.addEventListener('click', function() {
 										openTab('https://github.com/zhw2590582/bilibili-live-hime');
 									});
-									// this.$liveSetting.addEventListener('click', function() {
-									// 	openTab('https://link.bilibili.com/p/center/index#/my-room/start-live');
-									// });
+									this.$liveSetting.addEventListener('click', function() {
+										openTab('https://link.bilibili.com/p/center/index#/my-room/start-live');
+									});
 									this.$socketSetting.addEventListener('click', function() {
 										openTab('https://github.com/zhw2590582/bilibili-live-hime#%E6%9C%8D%E5%8A%A1%E7%AB%AF');
 									});
@@ -1180,7 +1156,33 @@ var BilibiliLiveHimePopup = (function() {
 										_this2.saveInput('videoBitsPerSecond');
 									});
 									this.$start.addEventListener('click', function() {
-										_this2.start();
+										//新加获取rtmp地址接口
+										getCourseId().then((v) => {
+											let courseId = v.url.slice(v.url.indexOf('course/') + 7) || ''
+											var xhttp = new XMLHttpRequest();
+											xhttp.onreadystatechange = function() {
+												if (this.readyState == 4 && this.status == 200) {
+													const res = JSON.parse(xhttp.responseText);
+													console.log("获取rtmp")
+													console.log(res)
+													console.log(courseId)
+													_this2.$streamname.value = res.url.slice(res.url.indexOf('maodou/') + 7);
+													_this2.start();
+												}
+												if (this.readyState == 4 && this.status != 200) {
+													console.log("获取失败")
+												}
+											};
+											let body = {}
+											xhttp.open(
+												"GET",
+												'https://steam.maodoulive.com/api/customer/course/' + courseId + '/pubUrl',
+												true
+											);
+											// xhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+											xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+											xhttp.send();
+										})
 
 									});
 									this.$stop.addEventListener('click', function() {
