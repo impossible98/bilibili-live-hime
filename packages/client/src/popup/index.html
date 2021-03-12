@@ -21,7 +21,7 @@
 			<div class="item">
 			    <div class="key">区域坐标:</div>
 			    <div class="value">
-			        <input class="crop" type="text" placeholder="请输入区域坐标" maxlength="200" spellcheck="false">
+			        <input id="crop" class="crop" type="text" placeholder="请输入区域坐标" maxlength="200" spellcheck="false">
 			    </div>
 			</div>
             <div class="item">
@@ -83,9 +83,12 @@
             </div>
         </section>
         <footer class="footer">
-            <div class="start">
+           <button id="start" disabled="disabled" class="start" style="cursor:not-allowed;border:none">
                 开始推流
-            </div>
+            </button>
+			<!-- <div class="start">
+			    开始推流
+			</div> -->
             <div class="stop">
                 停止推流
             </div>
