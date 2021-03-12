@@ -1293,7 +1293,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 										capturedTab = _context5.sent;
 
 										if (config) {
-											this.$rtmp.value = config.rtmp || '';
+											//默认rtmp地址
+											this.$rtmp.value = config.rtmp || 'rtmp://pili-publish.maodouapp.com/maodou/';
 											this.$live.value = config.live || '';
 											this.$streamname.value = config.streamname || '';
 											//初始化区域坐标
