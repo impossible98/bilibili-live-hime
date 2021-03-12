@@ -852,7 +852,8 @@ var BilibiliLiveHimePopup = (function() {
 	var CURRENT_PAGE = '当前页面';
 	var PUSH_STREAM_END = '已停止推流...';
 	var INJECTED_SUCCESS = '注入文件：';
-	var DEFAULT_SOCKET = 'http://localhost:8080';
+	// var DEFAULT_SOCKET = 'http://localhost:8080';
+	var DEFAULT_SOCKET = 'https://alpes-server.maodouapp.com';
 	var DEFAULT_RESOLUTION = 720;
 	var DEFAULT_VIDEO_BITSPER = 2500000;
 	var REG_RTMP = /^rtmp:\/\/.+/i;
@@ -1163,9 +1164,6 @@ var BilibiliLiveHimePopup = (function() {
 											xhttp.onreadystatechange = function() {
 												if (this.readyState == 4 && this.status == 200) {
 													const res = JSON.parse(xhttp.responseText);
-													console.log("获取rtmp")
-													console.log(res)
-													console.log(courseId)
 													_this2.$streamname.value = res.url.slice(res.url.indexOf('maodou/') + 7);
 													_this2.start();
 												}
